@@ -1,9 +1,3 @@
-/**********************************
- * IFPB - Curso Superior de Tec. em Sist. para Internet
- * Persistencia de Objetos
- * Prof. Fausto Maranh�o Ayres
- **********************************/
-
 package daodb4o;
 
 import java.lang.reflect.Field;
@@ -13,27 +7,26 @@ import java.util.List;
 import com.db4o.ObjectContainer;
 import com.db4o.query.Query;
 
-
 public abstract class DAO<T> implements DAOInterface<T> {
 	protected static ObjectContainer manager;
 
-	public static void open(){	
-		manager = Util.conectarBanco();				//banco local
+	public static void open() {	
+		manager = Util.conectarBanco(); // Banco local
 	}
 
-	public static void close(){
+	public static void close() {
 		Util.desconectar();
 	}
 
-	//----------CRUD-----------------------
+	// ------------ CRUD ----------------
 
 	public void create(T obj){
 		manager.store( obj );
 	}
 
-	public abstract T read(Object chave);	//sobrescrito nas subclasses
+	public abstract T read(Object chave); // Sobrescrito nas subclasses
 
-	public T update(T obj){
+	public T update(T obj) {
 		manager.store(obj);
 		return obj;
 	}
@@ -42,13 +35,13 @@ public abstract class DAO<T> implements DAOInterface<T> {
 		manager.delete(obj);
 	}
 
-	public void refresh(T obj){
+	public void refresh(T obj) {
 		manager.ext().refresh(obj, Integer.MAX_VALUE);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> readAll(){
-		manager.ext().purge();  	//limpar cache do manager
+	public List<T> readAll() {
+		manager.ext().purge(); // Limpa cache do manager
 
 		Class<T> type = (Class<T>) ((ParameterizedType) this.getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
@@ -58,8 +51,8 @@ public abstract class DAO<T> implements DAOInterface<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	//deletar todos objetos de um tipo (e subtipo)
-	public void deleteAll(){
+	// Deleta todos objetos de um tipo (e subtipo)
+	public void deleteAll() {
 		Class<T> type = (Class<T>) ((ParameterizedType) this.getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 
@@ -70,9 +63,9 @@ public abstract class DAO<T> implements DAOInterface<T> {
 		}
 	}
 
-	//--------transa��o---------------
-	public static void begin(){	
-	}		// tem que ser vazio
+	// ----------- Transação ---------------
+	public static void begin(){ // Tem que ser vazio	
+	}
 
 	public static void commit(){
 		manager.commit();
@@ -80,44 +73,46 @@ public abstract class DAO<T> implements DAOInterface<T> {
 	public static void rollback(){
 		manager.rollback();
 	}
-
-	//	gerar novo id para o tipo T, 
-	//  baseando-se no maior valor do atributo "id" 
-
+ 
+	// Gera novo id para o tipo T, baseando-se no maior valor do atributo "id"
 	public int gerarId() {
 		@SuppressWarnings("unchecked")
 		Class<T> type =(Class<T>) ((ParameterizedType) this.getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 
-		//verificar se o banco esta vazio 
-		if(manager.query(type).size()==0) {
-			return 1;			//primeiro id gerado
+		// Verifica se o banco está vazio 
+		if(manager.query(type).size() == 0) {
+			return 1; // Primeiro id gerado
 		}
+		
 		else {
-			//obter o maior valor de id para o tipo
+			// Obtêm o maior valor de id para o tipo
 			Query q = manager.query();
 			q.constrain(type);
 			q.descend("id").orderDescending();
 			List<T> resultados =  q.execute();
 			if(resultados.isEmpty()) 
-				return 1; 		//nenhum resultado, retorna primeiro id 
+				return 1; // Nenhum resultado, retorna o primeiro id 
 			else 
 				try {
-					//obter objeto localizado
+					// Obtêm objeto localizado
 					T objeto =  resultados.get(0);
 					Field atributo = type.getDeclaredField("id") ;
 					atributo.setAccessible(true);
-					//obter atributo id do objeto localizado e incrementa-lo
-					int maxid = (Integer) atributo.get(objeto);  //valor do id
+					// Obtêm atributo id do objeto localizado e incrementa-lo
+					int maxid = (Integer) atributo.get(objeto); // Valor do id
+					
 					return maxid+1;
 
-				} catch(NoSuchFieldException e) {
+				}
+				
+				catch(NoSuchFieldException e) {
 					throw new RuntimeException("classe "+type+" - nao tem atributo id");
-				} catch (IllegalAccessException e) {
+				}
+
+				catch (IllegalAccessException e) {
 					throw new RuntimeException("classe "+type+" - atributo id inacessivel");
 				}
 		}
 	}
-
 }
-
