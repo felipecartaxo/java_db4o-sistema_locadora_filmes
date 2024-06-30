@@ -8,19 +8,22 @@ package regras_negocio;
 import java.util.List;
 
 import daodb4o.DAO;
-import daodb4o.DAOCarro;
-import daodb4o.DAOMotor;
-import daodb4o.DAOMotorista;
+import daodb4o.DAOGenero;
+import daodb4o.DAOUsuario;
+import daodb4o.DAOVideo;
 import modelo.Carro;
 import modelo.Motor;
 import modelo.Motorista;
+import modelo.Usuario;
+import modelo.Video;
 
 public class Fachada {
 	private Fachada() {}
 
-	private static DAOCarro daocarro = new DAOCarro();
-	private static DAOMotor daomotor = new DAOMotor();
-	private static DAOMotorista daomotorista = new DAOMotorista();
+	private static DAOVideo daovideo = new DAOVideo();
+	private static DAOGenero daogenero = new DAOGenero();
+	private static DAOUsuario daousuario = new DAOUsuario();
+	public static Usuario logado;	// Contem o objeto Usuario logado em TelaLogin.java
 
 	public static void inicializar() {
 		DAO.open();
@@ -30,31 +33,18 @@ public class Fachada {
 		DAO.close();
 	}
 
-
-	public static void criarMotor(String nomemotor, double potencia) throws Exception {
+	public static Video cadastrarVideo(String titulo, String link, int classificacao) throws Exception {
 		DAO.begin();
-		Motor  motor = daomotor.read(nomemotor);
-		if (motor != null) {
-			DAO.rollback();
-			throw new Exception("criar motor - motor ja existe:" + nomemotor);
+		Video video = daovideo.read(titulo);
+		if (video != null) {
+			throw new Exception("Video ja cadastrado: " + titulo);
 		}
+		video = new Video(titulo, link, classificacao);
 		
-		motor = new Motor(nomemotor, potencia);
-		daomotor.create(motor);
+		daovideo.create(video);
 		DAO.commit();
-	}
-
-	public static void criarMotorista(String cnh, String nome) throws Exception {
-		DAO.begin();
-		Motorista  motorista = daomotorista.read(cnh);
-		if (motorista != null) {
-			DAO.rollback();
-			throw new Exception("criar motorista - motorista ja existe:" + cnh);
-		}
 		
-		motorista = new Motorista(cnh, nome);
-		daomotorista.create(motorista);
-		DAO.commit();
+		return video;
 	}
 	
 	public static void criarCarro(String placa, String nomemotor, String cnh) throws Exception {
@@ -110,12 +100,4 @@ public class Fachada {
 		List<Motor> result = daomotor.readAll();
 		return result;
 	}
-
-	public static List<Motorista> listarMotoristas() {
-		List<Motorista> result = daomotorista.readAll();
-		return result;
-	}
-
-
-	
 }
