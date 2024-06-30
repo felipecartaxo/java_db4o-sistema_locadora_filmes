@@ -1,48 +1,43 @@
-/**********************************
- * IFPB - Curso Superior de Tec. em Sist. para Internet
- * POB - Persistencia de Objetos
- * Prof. Fausto Ayres
- *
- */
-
 package daodb4o;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.config.EmbeddedConfiguration;
 
-import modelo.Carro;
+import modelo.Genero;
+import modelo.Video;
 
 public class Util {
-	private static ObjectContainer manager=null;
-
+	private static ObjectContainer manager = null;
 	
-	public static ObjectContainer conectarBanco(){
+	public static ObjectContainer conectarBanco() {
+		
 		if (manager != null)
-			return manager;		//ja tem uma conexao
+			return manager;		// Caso exista uma conexão, retorna a conexão existente
 
-		//---------------------------------------------------------------
-		//configurar, criar e abrir banco local (pasta do projeto)
-		//---------------------------------------------------------------
+		// Gonfigurar, criar e abrir banco local (na pasta do projeto)
 		EmbeddedConfiguration config =  Db4oEmbedded.newConfiguration(); 
 		config.common().messageLevel(0);  // mensagens na tela 0(desliga),1,2,3...
 		
-		// habilitar cascata para alterar, apagar e recuperar objetos
-		config.common().objectClass(Carro.class).cascadeOnDelete(false);;
-		config.common().objectClass(Carro.class).cascadeOnUpdate(true);;
-		config.common().objectClass(Carro.class).cascadeOnActivate(true);
+		// Configuração do cascade para a classe Video
+		config.common().objectClass(Video.class).cascadeOnDelete(false); // Ao apagar um vídeo, os gêneros relacionados não deverão ser apagados
+		config.common().objectClass(Video.class).cascadeOnUpdate(true);
+		config.common().objectClass(Video.class).cascadeOnActivate(true);
+		
+		// Configuração do cascade para a classe Genero
+		config.common().objectClass(Genero.class).cascadeOnDelete(false); // Ao apagar um gênero, os vídeos relacionados não deverão ser apagados
+		config.common().objectClass(Genero.class).cascadeOnUpdate(true);
+		config.common().objectClass(Genero.class).cascadeOnActivate(true);
 
-		//conexao local
+		// Conexão local
 		manager = Db4oEmbedded.openFile(config, "banco.db4o");
 		return manager;
 	}
-	
-	
 
 	public static void desconectar() {
-		if(manager!=null) {
+		if(manager != null) {
 			manager.close();
-			manager=null;
+			manager = null;
 		}
 	}
 }
