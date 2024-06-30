@@ -15,25 +15,23 @@ public class Video {
 	public Video () {}
 	
 	// Construtor com argumentos
-	public Video (int id, String titulo, String link, int classificacao) throws Exception { // Um vídeo não pode ter dois gêneros iguais
+	public Video (String titulo, String link, int classificacao) throws Exception { // Um vídeo não pode ter dois gêneros iguais
 		if(classificacao < 1 || classificacao > 5) {
 			throw new Exception("Classificação de 1 a 5"); // A classificação deve ser de 1 a 5
 		}
 		
-		this.id = id;
+		// this.id = id;
 		this.titulo = titulo;
 		this.link = link;
 		this.classificacao = classificacao;
 	}
 
 	// Getters e settters
-	public int getId () {
-		return id;
-	}
-	
-	public void setId (int id) {
-		this.id = id;
-	}
+	/*
+	 * public int getId () { return id; }
+	 * 
+	 * public void setId (int id) { this.id = id; }
+	 */
 
 	public String getTitulo () {
 		return titulo;
