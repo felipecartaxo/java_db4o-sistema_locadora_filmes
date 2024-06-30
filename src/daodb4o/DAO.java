@@ -7,7 +7,6 @@ import java.util.List;
 import com.db4o.ObjectContainer;
 import com.db4o.query.Query;
 
-// Estabelece o padrão de assinaturas dos métodos CRUD
 public abstract class DAO<T> implements DAOInterface<T> {
 	protected static ObjectContainer manager;
 
