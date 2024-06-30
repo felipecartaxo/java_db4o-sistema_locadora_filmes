@@ -12,10 +12,10 @@ public class Video {
 	private ArrayList<Genero> generos = new ArrayList<>(); // Um vídeo possui um ou mais gêneros
 	
 	// Construtor padrão
-	public Video() {}
+	public Video () {}
 	
 	// Construtor com argumentos
-	public Video(int id, String titulo, String link, int classificacao) throws Exception { // Um vídeo não pode ter dois gêneros iguais
+	public Video (int id, String titulo, String link, int classificacao) throws Exception { // Um vídeo não pode ter dois gêneros iguais
 		if(classificacao < 1 || classificacao > 5) {
 			throw new Exception("Classificação de 1 a 5"); // A classificação deve ser de 1 a 5
 		}
@@ -27,35 +27,35 @@ public class Video {
 	}
 
 	// Getters e settters
-	public int getId() {
+	public int getId () {
 		return id;
 	}
-
-	public void setId(int id) {
+	
+	public void setId (int id) {
 		this.id = id;
 	}
 
-	public String getTitulo() {
+	public String getTitulo () {
 		return titulo;
 	}
 
-	public void setTitulo(String titulo) {
+	public void setTitulo (String titulo) {
 		this.titulo = titulo;
 	}
 
-	public String getLink() {
+	public String getLink () {
 		return link;
 	}
 
-	public void setLink(String link) {
+	public void setLink (String link) {
 		this.link = link;
 	}
 
-	public int getClassificacao() {
+	public int getClassificacao () {
 		return classificacao;
 	}
 
-	public void setClassificacao(int classificacao) {
+	public void setClassificacao (int classificacao) {
 		this.classificacao = classificacao;
 	}
 	
@@ -64,7 +64,7 @@ public class Video {
 	}
 	
 	// Adiciona um gênero
-	public void adicionarGenero(Genero genero) throws Exception{
+	public void adicionarGenero (Genero genero) throws Exception {
 		if(generos.contains(genero)) {
 			throw new Exception("O filme não pode ter 2 gêneros iguais"); // Um filme não pode ter 2 gêneros iguais
 		}
@@ -73,13 +73,13 @@ public class Video {
 	}
 	
 	// Remove um gênero
-	public void removerGenero(Genero genero) {
+	public void removerGenero (Genero genero) {
 		generos.remove(genero);
 	}
 	
 	// Localiza um gênero
-	public Genero localizarGenero(String genero) {
-		for(Genero g : generos) {
+	public Genero localizarGenero (String genero) {
+		for (Genero g : generos) {
 			if(g.getNome().equals(genero)) {
 				return g;
 			}
@@ -93,7 +93,7 @@ public class Video {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(id + ", " + titulo + ", " + link + ", " + classificacao + "\nGeneros: ");
+		sb.append(titulo + ", " + link + ", " + classificacao + "\nGeneros: ");
 		for(Genero g : generos){
 			sb.append(g.getNome() + " ");
 		};
