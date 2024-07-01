@@ -1,9 +1,4 @@
 package regras_negocio;
-/**********************************
- * IFPB - SI
- * POB - Persistencia de Objetos
- * Prof. Fausto Ayres
- **********************************/
 
 import java.util.List;
 
@@ -11,11 +6,6 @@ import daodb4o.DAO;
 import daodb4o.DAOGenero;
 import daodb4o.DAOUsuario;
 import daodb4o.DAOVideo;
-import modelo.Aluguel;
-import modelo.Carro;
-import modelo.Cliente;
-import modelo.Motor;
-import modelo.Motorista;
 import modelo.Usuario;
 import modelo.Video;
 
@@ -61,13 +51,9 @@ public class Fachada {
 		DAO.commit();
 	}
 	
-	public static List<Carro> listarCarros() {
-		List<Carro> result = daocarro.readAll();
-		return result;
-	}
-
-	public static List<Motor> listarMotores() {
-		List<Motor> result = daomotor.readAll();
-		return result;
+	public static List<Video> listarVideos() {
+		List<Video> resultado = daovideo.readAll();
+		
+		return resultado;
 	}
 }
