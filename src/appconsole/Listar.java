@@ -1,48 +1,41 @@
 package appconsole;
 /**********************************
- * IFPB - Curso Superior de Tec. em Sist. para Internet
- * POB - Persistencia de Objetos
+ * IFPB - SI
+ * Persistencia de Objetos
  * Prof. Fausto Ayres
- *
- */
+ **********************************/
 
-import modelo.Carro;
-import modelo.Motor;
-import modelo.Motorista;
+
+import modelo.Genero;
+import modelo.Video;
 import regras_negocio.Fachada;
-
 
 public class Listar {
 
 	public Listar(){
-		Fachada.inicializar();
-		listar();
-		Fachada.finalizar();
-		
-		System.out.println("\n\n aviso: feche sempre o plugin OME antes de executar aplicação");
-	}
+		try {
+			Fachada.inicializar();
 
-	public void listar(){
-		System.out.println("\n---listagem de carros:");
-		for(Carro p: Fachada.listarCarros())
-			System.out.println(p);
+			System.out.println("*** Listagem de videos:");
+			for(Video video : Fachada.listarVideos()) {
+				System.out.println(video);
+			}
+
+			System.out.println("\n*** Listagem de generos:");
+			for(Genero genero : Fachada.listarGeneros()) {
+				System.out.println(genero);
+			}
+				
+		}
 		
-		System.out.println("\n---listagem de motores:");
-		for(Motor mt: Fachada.listarMotores())
-			System.out.println(mt);
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
-		System.out.println("\n---listagem de motoristas:");
-		for(Motorista m: Fachada.listarMotoristas())
-			System.out.println(m);
+		Fachada.finalizar();
 	}
 	
-
-
-
-
-	//=================================================
 	public static void main(String[] args) {
 		new Listar();
 	}
 }
-

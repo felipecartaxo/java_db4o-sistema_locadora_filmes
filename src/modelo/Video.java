@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Video {
 	
 	// Atributos
-	private int id; // Este id PROVAVELMENTE será gerado automaticamente
+	private int id; // Gerado automaticamente no DAOVideo
 	private String titulo;
 	private String link;
 	private int classificacao; // De 1 a 5
@@ -20,18 +20,19 @@ public class Video {
 			throw new Exception("Classificação de 1 a 5"); // A classificação deve ser de 1 a 5
 		}
 		
-		// this.id = id;
 		this.titulo = titulo;
 		this.link = link;
 		this.classificacao = classificacao;
 	}
 
 	// Getters e settters
-	/*
-	 * public int getId () { return id; }
-	 * 
-	 * public void setId (int id) { this.id = id; }
-	 */
+	public int getId () {
+		return id;
+	}
+	
+	public void setId (int id) {
+		this.id = id;
+	}
 
 	public String getTitulo () {
 		return titulo;
@@ -91,7 +92,7 @@ public class Video {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(titulo + ", " + link + ", " + classificacao + "\nGeneros: ");
+		sb.append("Video: " + id + ", " + titulo + ", " + link + ", " + classificacao + "\nGeneros: ");
 		for(Genero g : generos){
 			sb.append(g.getNome() + " ");
 		};

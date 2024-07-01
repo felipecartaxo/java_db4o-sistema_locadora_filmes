@@ -5,32 +5,42 @@ import regras_negocio.Fachada;
 public class Cadastrar {
 
 	public Cadastrar() {
-		Fachada.inicializar();
-		cadastrar();
-		Fachada.finalizar();
-		System.out.println("fim da appconsole");
-	}
-
-	public void cadastrar() {
 		try {
-			System.out.println("cadastrando...");
-			
-			Fachada.criarMotor("zetec", 1.0);
-			Fachada.criarMotorista("1111", "joao");
-			Fachada.criarCarro("AAA1100", "zetec", "1111");
-			
-			Fachada.criarMotorista("2222", "ana");
-			Fachada.criarMotorista("3333", "jose");
-			Fachada.criarMotor("fire", 2.0);
-			Fachada.criarMotor("equinox", 3.0);
-
-			System.out.println("cadastrou.");
-		} catch (Exception e) {
-			System.out.println("exce��o=" + e.getMessage());
+			Fachada.inicializar();
+			System.out.println("cadastrando videos...");
+			Fachada.criarVideo("Video1", "video1.com", 1);
+			Fachada.criarVideo("Video2", "video2.com", 2);
+			Fachada.criarVideo("Video3", "video3.com", 3);
 		}
+		
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			System.out.println("cadastrando generos...");
+			Fachada.criarGenero("Ação");
+			Fachada.criarGenero("Romance");
+			Fachada.criarGenero("Terror");
+		}
+		
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		try {
+			System.out.println("categorizando filmes...");
+			Fachada.categorizarVideo("Video1", "Romance");
+			Fachada.categorizarVideo("Video2", "Ação");
+			Fachada.categorizarVideo("Video3", "Terror");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		Fachada.finalizar();
+		System.out.println("\nfim do programa !");
 	}
 
-	// =================================================
 	public static void main(String[] args) {
 		new Cadastrar();
 	}
