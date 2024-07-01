@@ -67,6 +67,18 @@ public class Fachada {
 		DAO.commit();
 	}
 	
+public static void excluirGenero(String nome) throws Exception{
+		
+		DAO.begin();
+		Genero genero = daogenero.read(nome);
+		if(genero == null) 
+			throw new Exception ("genero incorreto para exclusao " + nome);
+		
+		// Apaga o genero sem apagar os videos, pois os videos podem conter outros gêneros ou podem simplesmente ficar sem gênero até que outro possa ser incluido
+		daogenero.delete(genero);
+		DAO.commit();
+	}
+	
 	public static List<Video> listarVideos() {
 		List<Video> resultado = daovideo.readAll();
 		
