@@ -6,6 +6,7 @@ import daodb4o.DAO;
 import daodb4o.DAOGenero;
 import daodb4o.DAOUsuario;
 import daodb4o.DAOVideo;
+import modelo.Genero;
 import modelo.Usuario;
 import modelo.Video;
 
@@ -37,6 +38,21 @@ public class Fachada {
 		DAO.commit();
 		
 		return video;
+	}
+	
+	public static Genero cadastrarGenero(String nome) throws Exception {
+		
+		DAO.begin();
+		Genero genero = daogenero.read(nome);
+		if (genero != null) {
+			throw new Exception("Genero ja cadastrado: " + nome);
+		}
+		genero = new Genero(nome);
+		
+		daogenero.create(genero);
+		DAO.commit();
+		
+		return genero;
 	}
 	
 	public static void excluirVideo(String titulo) throws Exception{
