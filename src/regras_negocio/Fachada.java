@@ -84,4 +84,10 @@ public static void excluirGenero(String nome) throws Exception{
 		
 		return resultado;
 	}
+	
+	public static List<Genero> listarGeneros() {
+		List<Genero> resultado = daogenero.readAll();
+		
+		return resultado;
+	}
 }
