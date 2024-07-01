@@ -40,6 +40,21 @@ public class Fachada {
 		return video;
 	}
 	
+	public static Video alterarClassificacaoDoVideo(String titulo, int classificacao) throws Exception {
+		
+		DAO.begin();
+		Video video = daovideo.read(titulo);
+		if(video == null) {
+			throw new Exception ("video inexistente " + titulo);
+		}
+		if(video.getClassificacao() == classificacao) {
+			throw new Exception ("video ja possui esta classificacao " + titulo);
+		}
+		video.setClassificacao(classificacao);
+		
+		return video;
+	}
+	
 	public static Genero cadastrarGenero(String nome) throws Exception {
 		
 		DAO.begin();
@@ -90,4 +105,13 @@ public static void excluirGenero(String nome) throws Exception{
 		
 		return resultado;
 	}
+	
+	/**********************************************************
+	 * 
+	 * CONSULTAS IMPLEMENTADAS NOS DAO
+	 * 
+	 **********************************************************/
+	
+	
+	
 }
