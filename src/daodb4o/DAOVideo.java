@@ -40,15 +40,15 @@ public class DAOVideo extends DAO<Video> {
 		q.descend("video").descend("titulo").constrain(titulo);
 		
 		return q.execute();
-    }
-    
-    // Método para buscar vídeos pelo link
-    public static List<Video> videosPorLink(String link) {
-        Query q = manager.query();
-        q.constrain(Video.class);
-        q.constrain(Video.class);
-        q.descend("video").descend("link").constrain(link);
-        
-        return q.execute();
-    }
+	}
+	
+	// Método para buscar vídeos pelo link
+	public static List<Video> videosPorLink(String link) {
+		Query q = manager.query();
+		q.constrain(Video.class);
+		q.constrain(Video.class);
+		q.descend("video").descend("link").constrain(link);
+		
+		return q.execute();
+	}
 }
