@@ -26,8 +26,8 @@ public class DAOVideo extends DAO<Video> {
 	// Método sobrescrito da classe DAO para criar "id" sequencial 
 	public void create(Video obj){
 		int novoid = super.gerarId();  	// Gera novo id da classe
-		obj.setId(novoid);				// Atualiza id do objeto antes de grava-lo no banco
-		manager.store( obj );
+		obj.setId(novoid);				// Atualiza id do objeto antes de gravá-lo no banco
+		manager.store(obj);
 	}
 	
 	// ---------- Consultas ----------
@@ -38,6 +38,7 @@ public class DAOVideo extends DAO<Video> {
 		Query q = manager.query();
 		q.constrain(Video.class);
 		q.descend("video").descend("titulo").constrain(titulo);
+		
 		return q.execute();
     }
     
@@ -47,8 +48,7 @@ public class DAOVideo extends DAO<Video> {
         q.constrain(Video.class);
         q.constrain(Video.class);
         q.descend("video").descend("link").constrain(link);
+        
         return q.execute();
-    } 
-    	
-	// -------------------------------------
+    }
 }
