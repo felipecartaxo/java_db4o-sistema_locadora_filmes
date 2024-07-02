@@ -22,4 +22,16 @@ public class DAOGenero extends DAO<Genero> {
 		else
 			return null;
 	}
+	
+	// ---------- Consultas ----------
+	
+	// Método para buscar vídeos pelo gênero
+	public List<Genero> videosPorGenero(String nome){
+
+		Query q = manager.query();
+		q.constrain(Genero.class);
+		q.descend("genero").constrain(nome);
+		
+		return q.execute();
+	}
 }
