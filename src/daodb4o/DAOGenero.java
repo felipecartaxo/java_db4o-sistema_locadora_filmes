@@ -14,7 +14,7 @@ public class DAOGenero extends DAO<Genero> {
 		String nome = (String) chave;	// Casting para o tipo da chave
 		Query q = manager.query();
 		q.constrain(Genero.class);
-		q.descend("titulo").constrain(nome);
+		q.descend("nome").constrain(nome);
 		List<Genero> resultados = q.execute();
 		
 		if (resultados.size() > 0)
