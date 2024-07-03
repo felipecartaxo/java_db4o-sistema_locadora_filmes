@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.db4o.query.Query;
 
+import modelo.Genero;
 import modelo.Video;
 
 public class DAOVideo extends DAO<Video> {
@@ -32,24 +33,45 @@ public class DAOVideo extends DAO<Video> {
 	
 	// ---------- Consultas ----------
 	
-	// Método para buscar vídeos pelo título
-	public List<Video> videosPorTitulo (String titulo) {
+	// Quais os videos de classificação X
+	public List<Video> videosPorClassificacao (int valor) {
 		
+		// Quais os videos de título X
 		Query q = manager.query();
 		q.constrain(Video.class);
-		q.descend("video").constrain(titulo);
-		List<Video> resultado = q.execute();
+		q.descend("classificacao").constrain(valor);
 		
-		return resultado;
+		return q.execute();
 	}
 	
-	// Método para buscar vídeos pelo link
-	public List<Video> videosPorLink (String link) {
+	// Quais os videos do gênero X
+	public List<Video> videosPorGenero(String nome){
+
 		Query q = manager.query();
 		q.constrain(Video.class);
-		q.descend("video").constrain(link);
-		List<Video> resultado = q.execute();
+		q.descend("generos").descend("nome").constrain(nome);
+			
+		return q.execute();
+	}
+	
+	// Quais os videos de titulo X
+	public List<Video> videosPorTitulo (String titulo) {
 		
-		return resultado;
+		// Quais os videos de título X
+		Query q = manager.query();
+		q.constrain(Video.class);
+		q.descend("titulo").constrain(titulo);
+		
+		return q.execute();
+	}
+	
+	// Quais os vídeos de link X
+	public List<Video> videosPorLink (String link) {
+		
+		Query q = manager.query();
+		q.constrain(Video.class);
+		q.descend("link").constrain(link);
+		
+		return q.execute();
 	}
 }
