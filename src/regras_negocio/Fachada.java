@@ -158,20 +158,33 @@ public class Fachada {
 	}
 	
 	// ---------- Consultas ----------
+	
+	public static List<Video> videosPorClassificacao(int valor) {
+		List<Video> resultado = daovideo.videosPorClassificacao(valor);
+		
+		return resultado;
+	}
+	
 	public static List<Video> videosPorTitulo(String titulo) {
 		List<Video> resultado = daovideo.videosPorTitulo(titulo);
 		
 		return resultado;
 	}
 	
-	public static List<Genero> videosPorGenero(String nome){	
-		List<Genero> resultado =  daogenero.videosPorGenero(nome);
+	public static List<Video> videosPorLink(String link) {
+		List<Video> resultado = daovideo.videosPorLink(link);
 		
 		return resultado;
 	}
 	
-	public static List<Video> videosPorLink(String link) {
-		List<Video> resultado = daovideo.videosPorLink(link);
+	public static List<Video> videosPorGenero(String nome){	
+		List<Video> resultado =  daovideo.videosPorGenero(nome);
+		
+		return resultado;
+	}
+	
+	public static List<Genero> generosComMaisVideos(int valor) {
+		List<Genero> resultado = daogenero.generosComMaisVideos(valor);
 		
 		return resultado;
 	}
