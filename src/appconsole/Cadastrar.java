@@ -8,9 +8,11 @@ public class Cadastrar {
 		try {
 			Fachada.inicializar();
 			System.out.println("cadastrando videos...");
-			Fachada.criarVideo("Video1", "video1.com", 1);
-			Fachada.criarVideo("Video2", "video2.com", 2);
-			Fachada.criarVideo("Video3", "video3.com", 3);
+			Fachada.criarVideo("O labirinto do fauno", "labfauno.con", 5);
+			Fachada.criarVideo("A viagem de Chihiro", "chihiro.com", 5);
+			Fachada.criarVideo("Elementos", "elementos.com", 2);
+			Fachada.criarVideo("Coraline", "coraline.com", 5);
+			Fachada.criarVideo("Blade Runner", "bladerunner.com", 3);
 		}
 		
 		catch (Exception e) {
@@ -20,6 +22,9 @@ public class Cadastrar {
 		try {
 			System.out.println("cadastrando generos...");
 			Fachada.criarGenero("Ação");
+			Fachada.criarGenero("Aventura");
+			Fachada.criarGenero("Suspense");
+			Fachada.criarGenero("Animação");
 			Fachada.criarGenero("Romance");
 			Fachada.criarGenero("Terror");
 		}
@@ -30,10 +35,19 @@ public class Cadastrar {
 		
 		try {
 			System.out.println("categorizando filmes...");
-			Fachada.categorizarVideo("Video1", "Romance");
-			Fachada.categorizarVideo("Video2", "Ação");
-			Fachada.categorizarVideo("Video3", "Terror");
-		} catch (Exception e) {
+			
+			Fachada.categorizarVideo("O labirinto do fauno", "Suspense");
+			Fachada.categorizarVideo("O labirinto do fauno", "Terror");
+			Fachada.categorizarVideo("A viagem de Chihiro", "Animação");
+			Fachada.categorizarVideo("A viagem de Chihiro", "Aventura");
+			Fachada.categorizarVideo("Elementos", "Animação");
+			Fachada.categorizarVideo("Elementos", "Romance");
+			Fachada.categorizarVideo("Coraline", "Animação");
+			Fachada.categorizarVideo("Coraline", "Suspense");
+			Fachada.categorizarVideo("Blade Runner", "Aventura");
+		}
+
+		catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
