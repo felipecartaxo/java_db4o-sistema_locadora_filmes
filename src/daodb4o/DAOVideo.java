@@ -33,7 +33,7 @@ public class DAOVideo extends DAO<Video> {
 	// ---------- Consultas ----------
 	
 	// Método para buscar vídeos pelo título
-	public static List<Video> videosPorTitulo(String titulo) {
+	public List<Video> videosPorTitulo (String titulo) {
 		
 		Query q = manager.query();
 		q.constrain(Video.class);
@@ -43,7 +43,7 @@ public class DAOVideo extends DAO<Video> {
 	}
 	
 	// Método para buscar vídeos pelo link
-	public static List<Video> videosPorLink(String link) {
+	public List<Video> videosPorLink (String link) {
 		Query q = manager.query();
 		q.constrain(Video.class);
 		q.constrain(Video.class);
