@@ -37,18 +37,19 @@ public class DAOVideo extends DAO<Video> {
 		
 		Query q = manager.query();
 		q.constrain(Video.class);
-		q.descend("video").descend("titulo").constrain(titulo);
+		q.descend("video").constrain(titulo);
+		List<Video> resultado = q.execute();
 		
-		return q.execute();
+		return resultado;
 	}
 	
 	// Método para buscar vídeos pelo link
 	public List<Video> videosPorLink (String link) {
 		Query q = manager.query();
 		q.constrain(Video.class);
-		q.constrain(Video.class);
-		q.descend("video").descend("link").constrain(link);
+		q.descend("video").constrain(link);
+		List<Video> resultado = q.execute();
 		
-		return q.execute();
+		return resultado;
 	}
 }

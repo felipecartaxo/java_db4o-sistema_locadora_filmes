@@ -31,7 +31,8 @@ public class DAOGenero extends DAO<Genero> {
 		Query q = manager.query();
 		q.constrain(Genero.class);
 		q.descend("genero").constrain(nome);
+		List<Genero> resultado = q.execute();
 		
-		return q.execute();
+		return resultado;
 	}
 }
