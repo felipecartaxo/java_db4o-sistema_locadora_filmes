@@ -155,4 +155,23 @@ public class Fachada {
 		
 		return resultado;
 	}
+	
+	// ---------- Consultas ----------
+	public static List<Video> videosPorTitulo(String titulo) {
+		List<Video> resultado = daovideo.videosPorTitulo(titulo);
+		
+		return resultado;
+	}
+	
+	public static List<Genero> videosPorGenero(String nome){	
+		List<Genero> resultado =  daogenero.videosPorGenero(nome);
+		
+		return resultado;
+	}
+	
+	public static List<Video> videosPorLink(String link) {
+		List<Video> resultado = daovideo.videosPorLink(link);
+		
+		return resultado;
+	}
 }
