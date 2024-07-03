@@ -8,7 +8,7 @@ public class Cadastrar {
 		try {
 			Fachada.inicializar();
 			System.out.println("cadastrando videos...");
-			Fachada.criarVideo("O labirinto do fauno", "labfauno.con", 5);
+			Fachada.criarVideo("O labirinto do fauno", "labfauno.com", 5);
 			Fachada.criarVideo("A viagem de Chihiro", "chihiro.com", 5);
 			Fachada.criarVideo("Elementos", "elementos.com", 2);
 			Fachada.criarVideo("Coraline", "coraline.com", 5);
