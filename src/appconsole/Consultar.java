@@ -1,12 +1,7 @@
 package appconsole;
-/**********************************
- * IFPB - SI
- * Persistencia de Objetos
- * Prof. Fausto Ayres
- **********************************/
 
-import modelo.Pessoa;
-import modelo.Telefone;
+import modelo.Genero;
+import modelo.Video;
 import regras_negocio.Fachada;
 
 
@@ -15,30 +10,35 @@ public class Consultar {
 	public Consultar(){
 
 		try {
-			Fachada.inicializar();
-			System.out.println("\n1.procurando nome jo ");
-			for(Pessoa p : Fachada.consultarPessoas("jo")) 
-				System.out.println(p);
-
-			System.out.println("\n2.procurando numero 987 ");
-			for(Telefone t : Fachada.consultarTelefones("987")) 
-				System.out.println(t);
-
-			System.out.println("\n---listar pessoas que nasceram no mes 02");
-			for(Pessoa p : Fachada.consultarMesNascimento("02")) 
-				System.out.println(p);
 			
-			System.out.println("\n3.procurando quem tem dois telefones " );
-			for(Pessoa p : Fachada.consultarPessoasNTelefones(2) ) 
-				System.out.println(p);
-
-			System.out.println("\n4.maria tem telefone celular?\n"+
-					Fachada.temTelefoneCelular("maria") );
-
-			System.out.println("\n5.maria tem telefone fixo\n"+
-					Fachada.temTelefoneFixo("maria") );
-
-		} catch (Exception e) {
+			System.out.println("consultas... \n");
+			
+			// Quais os videos de classificação X
+			
+			
+			// Quais os gêneros que tem mais de N vídeos
+			
+			
+			// Quais os videos de título X
+			System.out.println("\nVideos com o título Video1");
+			for(Video a : Fachada.videosPorTitulo("Video1"))
+				System.out.println(a);
+			
+			// Quais os videos do gênero X
+			System.out.println("\nVídeos cujo gênero é romance: ");
+			for(Genero b : Fachada.videosPorGenero("Romance"))
+				System.out.println(b);                
+            
+			// Quais os vídeos de link X
+			System.out.println("\nVideos com o link video2.com");
+			for(Video c : Fachada.videosPorLink("video2.com"))
+				System.out.println(c);
+			
+			
+			
+		}
+		
+		catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
@@ -46,10 +46,7 @@ public class Consultar {
 		System.out.println("\nfim do programa");
 	}
 
-
-	//=================================================
 	public static void main(String[] args) {
 		new Consultar();
 	}
 }
-
