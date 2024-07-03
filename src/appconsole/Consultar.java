@@ -10,7 +10,7 @@ public class Consultar {
 	public Consultar(){
 
 		try {
-			
+			Fachada.inicializar();
 			System.out.println("consultas... \n");
 			
 			// Quais os videos de classificação X
@@ -20,22 +20,19 @@ public class Consultar {
 			
 			
 			// Quais os videos de título X
-			System.out.println("\nVideos com o título Video1");
-			for(Video a : Fachada.videosPorTitulo("Video1"))
-				System.out.println(a);
+			System.out.println("\nVideos com o título 'Coraline': ");
+			for(Video video : Fachada.videosPorTitulo("Coraline"))
+				System.out.println(video);
+			
+			// Quais os vídeos de link X
+			System.out.println("\nVideos com o link bladerunner.com");
+			for(Video video : Fachada.videosPorLink("bladerunner.com"))
+				System.out.println(video);
 			
 			// Quais os videos do gênero X
-			System.out.println("\nVídeos cujo gênero é romance: ");
-			for(Genero b : Fachada.videosPorGenero("Romance"))
-				System.out.println(b);                
-            
-			// Quais os vídeos de link X
-			System.out.println("\nVideos com o link video2.com");
-			for(Video c : Fachada.videosPorLink("video2.com"))
-				System.out.println(c);
-			
-			
-			
+			System.out.println("\nVídeos cujo gênero é Suspense: ");
+			for(Genero genero : Fachada.videosPorGenero("Suspense"))
+				System.out.println(genero);                
 		}
 		
 		catch (Exception e) {
