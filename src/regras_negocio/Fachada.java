@@ -62,19 +62,20 @@ public class Fachada {
 	}
 	
 	// Altera o titulo de um video já existente no banco
-		public static void alterarTituloDoVideo(String titulo, String novoTitulo) throws Exception {
+	public static void alterarTituloDoVideo(String titulo, String novoTitulo) throws Exception {
 			
-			DAO.begin();
-			Video video = daovideo.read(titulo);
-			if(video == null) {
+		DAO.begin();
+		Video video = daovideo.read(titulo);
+		if(video == null) {
 				throw new Exception ("titulo do video inexistente: " + titulo);
-			}
-			if(video.getTitulo() == titulo) {
-				throw new Exception ("video ja possui este titulo: " + titulo);
-			}
-			video.setTitulo(novoTitulo);
-			DAO.commit();
 		}
+		if(video.getTitulo() == titulo) {
+			throw new Exception ("video ja possui este titulo: " + titulo);
+		}
+		
+		video.setTitulo(novoTitulo);
+		DAO.commit();
+	}
 	
 	// Altera a classificação de um video já existente no banco
 	public static void alterarClassificacaoDoVideo(String titulo, int classificacao) throws Exception {
