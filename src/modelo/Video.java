@@ -15,9 +15,11 @@ public class Video {
 	public Video () {}
 	
 	// Construtor com argumentos
-	public Video (String titulo, String link, int classificacao) throws Exception { // Um vídeo não pode ter dois gêneros iguais
-		if(classificacao < 1 || classificacao > 5) {
-			throw new Exception("Classificação de 1 a 5"); // A classificação deve ser de 1 a 5
+	public Video (String titulo, String link, int classificacao) throws Exception {
+		
+		// A classificação deve ser de 1 a 5
+		if (classificacao < 1 || classificacao > 5) {
+			throw new Exception("Classificação de 1 a 5");
 		}
 		
 		this.titulo = titulo;
@@ -64,8 +66,10 @@ public class Video {
 	
 	// Adiciona um gênero
 	public void adicionarGenero (Genero genero) throws Exception {
+		
+		// Um vídeo não pode ter dois gêneros iguais
 		if(generos.contains(genero)) {
-			throw new Exception("O filme não pode ter 2 gêneros iguais"); // Um filme não pode ter 2 gêneros iguais
+			throw new Exception("O filme não pode ter 2 gêneros iguais");
 		}
 		
 		generos.add(genero);
@@ -93,6 +97,7 @@ public class Video {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Video: " + id + ", " + titulo + ", " + link + ", " + classificacao + "\nGeneros: ");
+		
 		for(Genero g : generos){
 			sb.append(g.getNome() + " ");
 		};
