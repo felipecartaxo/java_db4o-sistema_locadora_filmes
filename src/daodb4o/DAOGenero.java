@@ -1,5 +1,6 @@
 package daodb4o;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.db4o.ObjectSet;
@@ -29,11 +30,27 @@ public class DAOGenero extends DAO<Genero> {
 	// Quais os gêneros que tem mais de N vídeos
 	public List<Genero> generosComMaisVideos (int valor) {
 		
-		Query q = manager.query(); // Não está funcionando corretamente
-		q.constrain(Genero.class);
-		q.descend("videos").constrain(valor).greater();
+		/*
+		 * Query q = manager.query(); // Não está funcionando corretamente
+		 * q.constrain(Genero.class);
+		 * q.descend("videos").size().constrain(valor).greater();
+		 * 
+		 * return q.execute();
+		 */
 		
-		return q.execute();
+		 Query q = manager.query();
+	        q.constrain(Genero.class);
+	        ObjectSet<Genero> generos = q.execute();
+	        
+	        List<Genero> generosComMaisVideos = new ArrayList<>();
+	        
+	        for (Genero genero : generos) {
+	            if (genero.getVideos().size() > valor) {
+	                generosComMaisVideos.add(genero);
+	            }
+	        }
+	        
+	        return generosComMaisVideos;
 	}
 	
 	public List<Genero> videosPorGenero(String nome){
