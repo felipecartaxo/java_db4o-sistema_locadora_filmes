@@ -1,10 +1,3 @@
-
-/**********************************
- * IFPB - SI
- * POB - Persistencia de Objetos
- * Prof. Fausto Ayres
- **********************************/
-
 package appswing;
 
 import javax.swing.*;
@@ -61,6 +54,7 @@ public class TelaPrincipal {
         if (telaGenero == null) {
             telaGenero = new TelaGenero();
         }
+        
         panelContainer.add(telaGenero.getPanel(), BorderLayout.CENTER);
         frame.revalidate();
         frame.repaint();
@@ -71,6 +65,7 @@ public class TelaPrincipal {
         if (telaVideo == null) {
             telaVideo = new TelaVideo();
         }
+        
         panelContainer.add(telaVideo.getPanel(), BorderLayout.CENTER);
         frame.revalidate();
         frame.repaint();
@@ -81,6 +76,7 @@ public class TelaPrincipal {
         if (telaConsultar == null) {
             telaConsultar = new TelaConsultar();
         }
+        
         panelContainer.add(telaConsultar.getPanel(), BorderLayout.CENTER);
         frame.revalidate();
         frame.repaint();
@@ -90,6 +86,3 @@ public class TelaPrincipal {
         SwingUtilities.invokeLater(() -> new TelaPrincipal());
     }
 }
-
-
-

@@ -1,4 +1,3 @@
-
 package appswing;
 
 import javax.swing.*;
@@ -40,9 +39,13 @@ public class TelaGenero {
                 Object[] row = {genero.getNome()};
                 tableModel.addRow(row);
             }
-        } catch (Exception e) {
+        }
+
+        catch (Exception e) {
             JOptionPane.showMessageDialog(panel, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } finally {
+        }
+
+        finally {
             Fachada.finalizar();
         }
     }
@@ -51,5 +54,3 @@ public class TelaGenero {
         return panel;
     }
 }
-
-
