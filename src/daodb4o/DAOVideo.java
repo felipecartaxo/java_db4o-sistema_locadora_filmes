@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.db4o.query.Query;
 
-import modelo.Genero;
 import modelo.Video;
 
 public class DAOVideo extends DAO<Video> {

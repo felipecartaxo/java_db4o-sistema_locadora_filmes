@@ -1,9 +1,5 @@
 package daodb4o;
-/**********************************
- * IFPB - SI
- * POB - Persistencia de Objetos
- * Prof. Fausto Ayres
- **********************************/
+
 import java.util.List;
 
 // Classe que vai estabelecer um "contrato" com as classes que irão implementar os métodos abaixo

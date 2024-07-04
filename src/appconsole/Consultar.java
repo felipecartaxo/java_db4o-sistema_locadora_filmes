@@ -4,7 +4,6 @@ import modelo.Genero;
 import modelo.Video;
 import regras_negocio.Fachada;
 
-
 public class Consultar {
 
 	public Consultar(){

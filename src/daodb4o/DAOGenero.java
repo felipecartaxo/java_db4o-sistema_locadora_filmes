@@ -6,7 +6,6 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 
 import modelo.Genero;
-import modelo.Video;
 
 public class DAOGenero extends DAO<Genero> {
 

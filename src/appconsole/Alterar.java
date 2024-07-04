@@ -1,9 +1,4 @@
 package appconsole;
-/**********************************
- * IFPB - SI
- * Persistencia de Objetos
- * Prof. Fausto Ayres
- **********************************/
 
 import regras_negocio.Fachada;
 

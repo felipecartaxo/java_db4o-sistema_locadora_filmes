@@ -1,10 +1,4 @@
 package appconsole;
-/**********************************
- * IFPB - SI
- * Persistencia de Objetos
- * Prof. Fausto Ayres
- **********************************/
-
 
 import modelo.Genero;
 import modelo.Video;
