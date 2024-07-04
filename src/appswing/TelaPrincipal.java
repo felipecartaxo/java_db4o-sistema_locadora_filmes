@@ -1,90 +1,95 @@
-package appswing;
+
 /**********************************
  * IFPB - SI
  * POB - Persistencia de Objetos
  * Prof. Fausto Ayres
  **********************************/
 
-import java.awt.EventQueue;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+package appswing;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
+import javax.swing.*;
+import java.awt.*;
 
 public class TelaPrincipal {
 
-	private JFrame frame;
-	private JMenuBar menuBar;
-	private JMenu menu;
-	private JMenu menu_1;
-	private JMenu menu_2;
+    private JFrame frame;
+    private JPanel panelContainer;
+    private TelaGenero telaGenero;
+    private TelaVideo telaVideo;
+    private TelaConsultar telaConsultar;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaPrincipal window = new TelaPrincipal();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    public TelaPrincipal() {
+        initialize();
+    }
 
-	/**
-	 * Create the application.
-	 */
-	public TelaPrincipal() {
-		initialize();
-	}
+    private void initialize() {
+        frame = new JFrame();
+        frame.setTitle("Tela Principal");
+        frame.setBounds(100, 100, 800, 600); 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(new BorderLayout());
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setTitle("Tela principal");
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
-		
-		menu = new JMenu("Carro");
-		menu.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				TelaCarro tela = new TelaCarro();
-			}
-		});
-		menuBar.add(menu);
-		
-		menu_1 = new JMenu("Motor");
-		menu_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			//	TelaMotor tela = new TelaMotor();
-			}
-		});
-		menuBar.add(menu_1);
-		
-		menu_2 = new JMenu("Motorista");
-		menu_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			//	TelaMotorista tela = new TelaMotorista();
-			}
-		});
-		menuBar.add(menu_2);
-		frame.getContentPane().setLayout(null);
-		
-	
-	}
+        JPanel panelMenu = new JPanel();
+        frame.getContentPane().add(panelMenu, BorderLayout.WEST);
+        panelMenu.setLayout(new GridLayout(4, 1, 0, 0));
 
+        JButton btnGeneros = new JButton("Gêneros");
+        btnGeneros.addActionListener(e -> exibirTelaGenero());
+        panelMenu.add(btnGeneros);
+
+        JButton btnVideos = new JButton("Vídeos");
+        btnVideos.addActionListener(e -> exibirTelaVideo());
+        panelMenu.add(btnVideos);
+
+        JButton btnConsultar = new JButton("Consultar");
+        btnConsultar.addActionListener(e -> exibirTelaConsultar());
+        panelMenu.add(btnConsultar);
+
+        JButton btnSair = new JButton("Sair");
+        btnSair.addActionListener(e -> System.exit(0));
+        panelMenu.add(btnSair);
+
+        panelContainer = new JPanel();
+        frame.getContentPane().add(panelContainer, BorderLayout.CENTER);
+        panelContainer.setLayout(new BorderLayout());
+
+        frame.setVisible(true);
+    }
+
+    private void exibirTelaGenero() {
+        panelContainer.removeAll();
+        if (telaGenero == null) {
+            telaGenero = new TelaGenero();
+        }
+        panelContainer.add(telaGenero.getPanel(), BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    private void exibirTelaVideo() {
+        panelContainer.removeAll();
+        if (telaVideo == null) {
+            telaVideo = new TelaVideo();
+        }
+        panelContainer.add(telaVideo.getPanel(), BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    private void exibirTelaConsultar() {
+        panelContainer.removeAll();
+        if (telaConsultar == null) {
+            telaConsultar = new TelaConsultar();
+        }
+        panelContainer.add(telaConsultar.getPanel(), BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new TelaPrincipal());
+    }
 }
+
+
+
