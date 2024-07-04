@@ -21,7 +21,7 @@ public class TelaVideo {
         panel.setLayout(new BorderLayout());
 
         // Configuração da tabela
-        String[] columnNames = {"Título", "Link"};
+        String[] columnNames = {"Id", "Título", "Link", "Classificação"};
         tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -36,12 +36,16 @@ public class TelaVideo {
             List<Video> videos = Fachada.listarVideos();
             tableModel.setRowCount(0); // Limpar a tabela antes de adicionar novas linhas
             for (Video video : videos) {
-                Object[] row = {video.getTitulo(), video.getLink()};
+                Object[] row = {video.getId(), video.getTitulo(), video.getLink(), video.getClassificacao()};
                 tableModel.addRow(row);
             }
-        } catch (Exception e) {
+        }
+
+        catch (Exception e) {
             JOptionPane.showMessageDialog(panel, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } finally {
+        }
+
+        finally {
             Fachada.finalizar();
         }
     }
@@ -50,6 +54,3 @@ public class TelaVideo {
         return panel;
     }
 }
-
-
-
