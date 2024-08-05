@@ -26,41 +26,39 @@ public class Genero {
 		this.nome = nome;
 	}
 
+	// Retorna a lista de vídeos
 	public ArrayList<Video> getVideos() {
 		return videos;
 	}
 	
-	// Adiciona um vídeo 
+	// Adiciona um vídeo à lista
 	public void adicionarVideo(Video video) {
 		videos.add(video);
 	}
 	
-	// Remove um vídeo
+	// Remove um vídeo da lista
 	public void removerVideo(Video video) {
 		videos.remove(video);
 	}
 	
 	// Localiza um vídeo
-	public Video localizarVideo(String nome) {
-		for (Video v : videos) {
-			if(v.getTitulo().equals(nome)) {
-				return v;
-			}
-		}
-		
-		return null;
-	}
+	/*
+	 * public Video localizarVideo(String nome) { for (Video v : videos) {
+	 * if(v.getTitulo().equals(nome)) { return v; } }
+	 * 
+	 * return null; }
+	 */
 	
 	// toString
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("\n" + nome);
+		sb.append("\n====== " + nome + " =====");
 		
 		for(Video v : videos) {
 			if(v.getGeneros() != null) {
-				sb.append("\nVideos: " + v.getTitulo());
+				sb.append("\nVideo: " + v.getTitulo());
 			}
 		};
 		

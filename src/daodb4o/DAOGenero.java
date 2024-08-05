@@ -27,16 +27,8 @@ public class DAOGenero extends DAO<Genero> {
 	
 	// ---------- Consultas ----------
 	
-	// Quais os gêneros que tem mais de N vídeos
+	// Quais os gêneros que tem mais de N vídeos (requisito)
 	public List<Genero> generosComMaisVideos (int valor) {
-		
-		/*
-		 * Query q = manager.query(); // Não está funcionando corretamente
-		 * q.constrain(Genero.class);
-		 * q.descend("videos").size().constrain(valor).greater();
-		 * 
-		 * return q.execute();
-		 */
 		
 		 Query q = manager.query();
 	        q.constrain(Genero.class);
@@ -53,11 +45,13 @@ public class DAOGenero extends DAO<Genero> {
 	        return generosComMaisVideos;
 	}
 	
+	// Quais os vídeos que pertencem a um determinado gênero (opcional)
 	public List<Genero> videosPorGenero(String nome){
 	    Query q = manager.query();
 	    q.constrain(Genero.class);
 	    q.descend("nome").constrain(nome);
 	    ObjectSet<Genero> resultados = q.execute();
+	    
 	    return resultados;
 	}
 }

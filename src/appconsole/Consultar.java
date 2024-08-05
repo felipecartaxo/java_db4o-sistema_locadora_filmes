@@ -12,24 +12,24 @@ public class Consultar {
 			Fachada.inicializar();
 			System.out.println("consultas... \n");
 			
-			System.out.println("\nVideos de classificação 5': ");
+			System.out.println("\n===== Videos de classificação 5: =====");
 			for(Video video : Fachada.videosPorClassificacao(5))
 				System.out.println(video);
 			
-			System.out.println("\nVídeos cujo gênero é Suspense: ");
+			System.out.println("\n===== Vídeos cujo gênero é Suspense: =====");
 			for(Video video : Fachada.videosPorGenero("Suspense"))
 				System.out.println(video);
 			
-			System.out.println("\nVideos com o título 'Coraline': ");
+			System.out.println("\n===== Videos com o título 'Coraline': =====");
 			for(Video video : Fachada.videosPorTitulo("Coraline"))
 				System.out.println(video);
 			
-			System.out.println("\nVideos com o link bladerunner.com: ");
-			for(Video video : Fachada.videosPorLink("bladerunner.com"))
+			System.out.println("\n===== Videos com o link divertidamente.com: =====");
+			for(Video video : Fachada.videosPorLink("divertidamente.com"))
 				System.out.println(video);
 			
-			System.out.println("\nGêneros com mais de 2 vídeos: ");
-			for(Genero generos : Fachada.generosComMaisVideos(2))
+			System.out.println("\n===== Gêneros com mais de 1 vídeo: =====");
+			for(Genero generos : Fachada.generosComMaisVideos(1))
 				System.out.println(generos);
 		}
 		

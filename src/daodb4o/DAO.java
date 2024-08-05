@@ -27,6 +27,7 @@ public abstract class DAO<T> implements DAOInterface<T> {
 
 	public T update(T obj) {
 		manager.store(obj);
+		
 		return obj;
 	}
 
@@ -63,13 +64,13 @@ public abstract class DAO<T> implements DAOInterface<T> {
 	}
 
 	// ----------- Transação ---------------
-	public static void begin(){ // Tem que ser vazio	
+	public static void begin() { // Tem que ser vazio	
 	}
 
-	public static void commit(){
+	public static void commit() {
 		manager.commit();
 	}
-	public static void rollback(){
+	public static void rollback() {
 		manager.rollback();
 	}
  
@@ -106,11 +107,11 @@ public abstract class DAO<T> implements DAOInterface<T> {
 				}
 				
 				catch(NoSuchFieldException e) {
-					throw new RuntimeException("classe "+type+" - nao tem atributo id");
+					throw new RuntimeException("classe "+ type+ " - nao tem atributo id");
 				}
 
 				catch (IllegalAccessException e) {
-					throw new RuntimeException("classe "+type+" - atributo id inacessivel");
+					throw new RuntimeException("classe "+ type +" - atributo id inacessivel");
 				}
 		}
 	}

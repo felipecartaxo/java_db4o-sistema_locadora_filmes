@@ -15,7 +15,7 @@ public class Util {
 		if (manager != null)
 			return manager;		// Caso exista uma conexão, retorna a conexão existente
 
-		// Gonfigurar, criar e abrir banco local (na pasta do projeto)
+		// Configurar, criar e abrir banco local (na pasta do projeto)
 		EmbeddedConfiguration config =  Db4oEmbedded.newConfiguration(); 
 		config.common().messageLevel(0);  // mensagens na tela 0(desliga),1,2,3...
 		

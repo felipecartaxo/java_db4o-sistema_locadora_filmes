@@ -9,7 +9,7 @@ public class TelaPrincipal {
     private JPanel panelContainer;
     private TelaGenero telaGenero;
     private TelaVideo telaVideo;
-    private TelaConsultar telaConsultar;
+    private TelaConsulta telaConsultar;
 
     public TelaPrincipal() {
         initialize();
@@ -74,7 +74,7 @@ public class TelaPrincipal {
     private void exibirTelaConsultar() {
         panelContainer.removeAll();
         if (telaConsultar == null) {
-            telaConsultar = new TelaConsultar();
+            telaConsultar = new TelaConsulta();
         }
         
         panelContainer.add(telaConsultar.getPanel(), BorderLayout.CENTER);

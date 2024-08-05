@@ -17,7 +17,7 @@ public class Video {
 	// Construtor com argumentos
 	public Video (String titulo, String link, int classificacao) throws Exception {
 		
-		// A classificação deve ser de 1 a 5
+		// Lança exceção se a classificação for menor do que 1 ou maior do 5
 		if (classificacao < 1 || classificacao > 5) {
 			throw new Exception("Classificação de 1 a 5");
 		}
@@ -60,14 +60,15 @@ public class Video {
 		this.classificacao = classificacao;
 	}
 	
+	// Retorna a lista de gêneros
 	public ArrayList<Genero> getGeneros() {
 		return generos;
 	}
 	
-	// Adiciona um gênero
+	// Adiciona um gênero à lista
 	public void adicionarGenero (Genero genero) throws Exception {
 		
-		// Um vídeo não pode ter dois gêneros iguais
+		// Lança exceção caso o gênero passado como argumento já esteja presente na lista de gêneros
 		if(generos.contains(genero)) {
 			throw new Exception("O filme não pode ter 2 gêneros iguais");
 		}
@@ -75,28 +76,25 @@ public class Video {
 		generos.add(genero);
 	}
 	
-	// Remove um gênero
+	// Remove um gênero da lista
 	public void removerGenero (Genero genero) {
 		generos.remove(genero);
 	}
 	
 	// Localiza um gênero
-	public Genero localizarGenero (String genero) {
-		for (Genero g : generos) {
-			if(g.getNome().equals(genero)) {
-				return g;
-			}
-		}
-		
-		return null;
-	}
+	/*
+	 * public Genero localizarGenero (String genero) { for (Genero g : generos) {
+	 * if(g.getNome().equals(genero)) { return g; } }
+	 * 
+	 * return null; }
+	 */
 	
 	// toString
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("Video: " + id + ", " + titulo + ", " + link + ", " + classificacao + "\nGeneros: ");
+		sb.append("\nVideo: " + id + ", " + titulo + ", " + link + ", " + classificacao + "\nGeneros: ");
 		
 		for(Genero g : generos){
 			sb.append(g.getNome() + " ");

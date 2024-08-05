@@ -24,7 +24,7 @@ public class DAOVideo extends DAO<Video> {
 	}
 	
 	// Método sobrescrito da classe DAO para criar "id" sequencial 
-	public void create(Video obj){
+	public void create(Video obj) {
 		int novoid = super.gerarId();  	// Gera novo id da classe
 		obj.setId(novoid);				// Atualiza id do objeto antes de gravá-lo no banco
 		manager.store(obj);
@@ -32,7 +32,7 @@ public class DAOVideo extends DAO<Video> {
 	
 	// ---------- Consultas ----------
 	
-	// Quais os videos de classificação X
+	// Quais os videos de classificação X (requisito)
 	public List<Video> videosPorClassificacao (int valor) {
 		
 		// Quais os videos de título X
@@ -43,8 +43,8 @@ public class DAOVideo extends DAO<Video> {
 		return q.execute();
 	}
 	
-	// Quais os videos do gênero X
-	public List<Video> videosPorGenero(String nome){
+	// Quais os videos do gênero X (requisito)
+	public List<Video> videosPorGenero(String nome) {
 
 		Query q = manager.query();
 		q.constrain(Video.class);
@@ -53,7 +53,7 @@ public class DAOVideo extends DAO<Video> {
 		return q.execute();
 	}
 	
-	// Quais os videos de titulo X
+	// Quais os videos de titulo X (opcional)
 	public List<Video> videosPorTitulo (String titulo) {
 		
 		// Quais os videos de título X
@@ -64,7 +64,7 @@ public class DAOVideo extends DAO<Video> {
 		return q.execute();
 	}
 	
-	// Quais os vídeos de link X
+	// Quais os vídeos de link X (opcional)
 	public List<Video> videosPorLink (String link) {
 		
 		Query q = manager.query();
