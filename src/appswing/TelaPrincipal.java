@@ -1,88 +1,86 @@
 package appswing;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import regras_negocio.Fachada;
 
-public class TelaPrincipal {
-
-    private JFrame frame;
-    private JPanel panelContainer;
-    private TelaGenero telaGenero;
-    private TelaVideo telaVideo;
-    private TelaConsulta telaConsultar;
-
+public class TelaPrincipal extends JFrame {
     public TelaPrincipal() {
-        initialize();
-    }
+        setTitle("Tela Principal");
+        setSize(400, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-    private void initialize() {
-        frame = new JFrame();
-        frame.setTitle("Tela Principal");
-        frame.setBounds(100, 100, 800, 600); 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(new BorderLayout());
+        // Painel principal
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 1)); // Ajuste o número de linhas
 
-        JPanel panelMenu = new JPanel();
-        frame.getContentPane().add(panelMenu, BorderLayout.WEST);
-        panelMenu.setLayout(new GridLayout(4, 1, 0, 0));
+        // Botão para abrir a Tela de Vídeos
+        JButton videoButton = new JButton("Gerenciar Vídeos");
+        videoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        TelaVideo videoFrame = new TelaVideo();
+                        videoFrame.setVisible(true);
+                    }
+                });
+            }
+        });
+        panel.add(videoButton);
 
-        JButton btnGeneros = new JButton("Gêneros");
-        btnGeneros.addActionListener(e -> exibirTelaGenero());
-        panelMenu.add(btnGeneros);
+        // Botão para abrir a Tela de Gêneros
+        JButton generoButton = new JButton("Gerenciar Gêneros");
+        generoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        TelaGenero generoFrame = new TelaGenero();
+                        generoFrame.setVisible(true);
+                    }
+                });
+            }
+        });
+        panel.add(generoButton);
 
-        JButton btnVideos = new JButton("Vídeos");
-        btnVideos.addActionListener(e -> exibirTelaVideo());
-        panelMenu.add(btnVideos);
+        // Botão para abrir a Tela de Consultas
+        JButton consultaButton = new JButton("Realizar Consultas");
+        consultaButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        TelaConsulta consultaFrame = new TelaConsulta();
+                        consultaFrame.setVisible(true);
+                    }
+                });
+            }
+        });
+        panel.add(consultaButton);
 
-        JButton btnConsultar = new JButton("Consultar");
-        btnConsultar.addActionListener(e -> exibirTelaConsultar());
-        panelMenu.add(btnConsultar);
+        // Botão para sair
+        JButton sairButton = new JButton("Sair");
+        sairButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0); // Encerra a aplicação
+            }
+        });
+        panel.add(sairButton);
 
-        JButton btnSair = new JButton("Sair");
-        btnSair.addActionListener(e -> System.exit(0));
-        panelMenu.add(btnSair);
-
-        panelContainer = new JPanel();
-        frame.getContentPane().add(panelContainer, BorderLayout.CENTER);
-        panelContainer.setLayout(new BorderLayout());
-
-        frame.setVisible(true);
-    }
-
-    private void exibirTelaGenero() {
-        panelContainer.removeAll();
-        if (telaGenero == null) {
-            telaGenero = new TelaGenero();
-        }
-        
-        panelContainer.add(telaGenero.getPanel(), BorderLayout.CENTER);
-        frame.revalidate();
-        frame.repaint();
-    }
-
-    private void exibirTelaVideo() {
-        panelContainer.removeAll();
-        if (telaVideo == null) {
-            telaVideo = new TelaVideo();
-        }
-        
-        panelContainer.add(telaVideo.getPanel(), BorderLayout.CENTER);
-        frame.revalidate();
-        frame.repaint();
-    }
-
-    private void exibirTelaConsultar() {
-        panelContainer.removeAll();
-        if (telaConsultar == null) {
-            telaConsultar = new TelaConsulta();
-        }
-        
-        panelContainer.add(telaConsultar.getPanel(), BorderLayout.CENTER);
-        frame.revalidate();
-        frame.repaint();
+        add(panel);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new TelaPrincipal());
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                Fachada.inicializar();
+                TelaPrincipal frame = new TelaPrincipal();
+                frame.setVisible(true);
+            }
+        });
     }
 }

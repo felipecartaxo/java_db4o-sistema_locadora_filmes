@@ -1,4 +1,3 @@
-
 package appswing;
 
 import javax.swing.*;
@@ -7,248 +6,133 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import modelo.Genero;
 import modelo.Video;
 import regras_negocio.Fachada;
 
-public class TelaConsulta {
-    private JPanel panel;
-    private JTable table;
+public class TelaConsulta extends JFrame {
+    private JTable resultadoTable;
     private DefaultTableModel tableModel;
-    private JComboBox<String> comboBoxConsultas;
-    private JTextField textFieldPesquisa;
-    private JButton buttonPesquisar;
+    private JComboBox<String> consultaComboBox;
+    private JTextField parametroField;
 
     public TelaConsulta() {
-        initialize();
-    }
+        setTitle("Consultas");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-    private void initialize() {
-        panel = new JPanel();
+        // Painel principal
+        JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        // Painel para opções de consulta
-        JPanel panelOpcoes = new JPanel();
-        panelOpcoes.setLayout(new FlowLayout());
+        // Modelo da tabela
+        tableModel = new DefaultTableModel(new Object[]{}, 0);
+        resultadoTable = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(resultadoTable);
+        panel.add(scrollPane, BorderLayout.CENTER);
 
-        // ComboBox para selecionar tipo de consulta
-        String[] tiposConsultas = {"Classificação", "Gênero", "Título", "Link"};
-        comboBoxConsultas = new JComboBox<>(tiposConsultas);
-        panelOpcoes.add(comboBoxConsultas);
+        // Painel de consultas
+        JPanel consultaPanel = new JPanel(new GridLayout(2, 2));
 
-        // Campo de texto para pesquisa
-        textFieldPesquisa = new JTextField(20);
-        panelOpcoes.add(textFieldPesquisa);
+        consultaComboBox = new JComboBox<>(new String[]{
+                "Videos por Classificação", "Videos por Título", "Videos por Link", "Videos por Gênero", "Gêneros com Mais Videos"
+        });
+        consultaPanel.add(new JLabel("Consulta:"));
+        consultaPanel.add(consultaComboBox);
 
-        // Botão para realizar a pesquisa
-        buttonPesquisar = new JButton("Pesquisar");
-        buttonPesquisar.addActionListener(new ActionListener() {
-            @Override
+        parametroField = new JTextField();
+        consultaPanel.add(new JLabel("Parâmetro:"));
+        consultaPanel.add(parametroField);
+
+        panel.add(consultaPanel, BorderLayout.NORTH);
+
+        // Painel de botões
+        JPanel buttonPanel = new JPanel();
+        JButton consultarButton = new JButton("Consultar");
+        consultarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                realizarConsulta();
+                consultar();
             }
         });
-        panelOpcoes.add(buttonPesquisar);
+        buttonPanel.add(consultarButton);
 
-        panel.add(panelOpcoes, BorderLayout.NORTH);
+        // Botão de Voltar
+        JButton voltarButton = new JButton("Voltar");
+        voltarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Fecha a tela de consulta
+                new TelaPrincipal().setVisible(true); // Abre a tela principal
+            }
+        });
+        buttonPanel.add(voltarButton);
 
-        // Configuração da tabela
-        String[] columnNames = {"Consulta", "Título", "Classificação", "Link"};
-        tableModel = new DefaultTableModel(columnNames, 0);
-        table = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(table);
-        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        add(panel);
     }
 
-    // Método para realizar consultas baseadas na seleção do usuário
-    private void realizarConsulta() {
+    private void consultar() {
+        String consulta = (String) consultaComboBox.getSelectedItem();
+        String parametro = parametroField.getText();
+
         try {
-            Fachada.inicializar();
-            String tipoConsulta = (String) comboBoxConsultas.getSelectedItem();
-            String valorPesquisa = textFieldPesquisa.getText();
-            List<Video> videos = null;
+            tableModel.setRowCount(0);
+            tableModel.setColumnCount(0);
 
-            tableModel.setRowCount(0); // Limpar a tabela antes de adicionar novas linhas
-
-            switch (tipoConsulta) {
-                case "Classificação":
-                    try {
-                        int classificacao = Integer.parseInt(valorPesquisa);
-                        videos = Fachada.videosPorClassificacao(classificacao);
-                        for (Video video : videos) {
-                            Object[] row = {"Classificação " + classificacao, video.getTitulo(), video.getClassificacao(), video.getLink()};
-                            tableModel.addRow(row);
-                        }
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(panel, "Por favor, insira um valor numérico para classificação.", "Erro", JOptionPane.ERROR_MESSAGE);
+            switch (consulta) {
+                case "Videos por Classificação":
+                    int classificacao = Integer.parseInt(parametro);
+                    List<Video> videosPorClassificacao = Fachada.videosPorClassificacao(classificacao);
+                    tableModel.setColumnIdentifiers(new String[]{"ID", "Título", "Link", "Classificação"});
+                    for (Video video : videosPorClassificacao) {
+                        tableModel.addRow(new Object[]{video.getId(), video.getTitulo(), video.getLink(), video.getClassificacao()});
                     }
                     break;
-                case "Gênero":
-                    videos = Fachada.videosPorGenero(valorPesquisa);
-                    for (Video video : videos) {
-                        Object[] row = {"Gênero " + valorPesquisa, video.getTitulo(), video.getClassificacao(), video.getLink()};
-                        tableModel.addRow(row);
+                case "Videos por Título":
+                    List<Video> videosPorTitulo = Fachada.videosPorTitulo(parametro);
+                    tableModel.setColumnIdentifiers(new String[]{"ID", "Título", "Link", "Classificação"});
+                    for (Video video : videosPorTitulo) {
+                        tableModel.addRow(new Object[]{video.getId(), video.getTitulo(), video.getLink(), video.getClassificacao()});
                     }
                     break;
-                case "Título":
-                    videos = Fachada.videosPorTitulo(valorPesquisa);
-                    for (Video video : videos) {
-                        Object[] row = {"Título " + valorPesquisa, video.getTitulo(), video.getClassificacao(), video.getLink()};
-                        tableModel.addRow(row);
+                case "Videos por Link":
+                    List<Video> videosPorLink = Fachada.videosPorLink(parametro);
+                    tableModel.setColumnIdentifiers(new String[]{"ID", "Título", "Link", "Classificação"});
+                    for (Video video : videosPorLink) {
+                        tableModel.addRow(new Object[]{video.getId(), video.getTitulo(), video.getLink(), video.getClassificacao()});
                     }
                     break;
-                case "Link":
-                    videos = Fachada.videosPorLink(valorPesquisa);
-                    for (Video video : videos) {
-                        Object[] row = {"Link " + valorPesquisa, video.getTitulo(), video.getClassificacao(), video.getLink()};
-                        tableModel.addRow(row);
+                case "Videos por Gênero":
+                    List<Video> videosPorGenero = Fachada.videosPorGenero(parametro);
+                    tableModel.setColumnIdentifiers(new String[]{"ID", "Título", "Link", "Classificação"});
+                    for (Video video : videosPorGenero) {
+                        tableModel.addRow(new Object[]{video.getId(), video.getTitulo(), video.getLink(), video.getClassificacao()});
                     }
                     break;
+                case "Gêneros com Mais Videos":
+                    int valor = Integer.parseInt(parametro);
+                    List<Genero> generosComMaisVideos = Fachada.generosComMaisVideos(valor);
+                    tableModel.setColumnIdentifiers(new String[]{"Nome", "Quantidade de Videos"});
+                    for (Genero genero : generosComMaisVideos) {
+                        tableModel.addRow(new Object[]{genero.getNome(), genero.getVideos().size()});
+                    }
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Consulta não reconhecida", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(panel, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Fachada.finalizar();
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public JPanel getPanel() {
-        return panel;
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                Fachada.inicializar();
+                TelaConsulta frame = new TelaConsulta();
+                frame.setVisible(true);
+            }
+        });
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
- 
- //original
-
-package appswing;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.util.List;
-import modelo.Video;
-import regras_negocio.Fachada;
-
-public class TelaConsultar {
-	// Painel principal da tela de consulta
-    private JPanel panel;
-    // Tabela para exibir os resultados das consultas
-    private JTable table;
-    // Modelo da tabela para manipulação de dados
-    private DefaultTableModel tableModel;
-
-    // Construtor da classe
-    public TelaConsultar() {
-    	// Inicializa os componentes da interface
-        initialize();
-    }
-
-    // Método para inicializar a interface
-    private void initialize() {
-    	// Cria o painel principal
-        panel = new JPanel();
-        // Define o layout do painel como BorderLayout
-        panel.setLayout(new BorderLayout());
-
-        // Configuração da tabela
-        String[] columnNames = {"Consulta", "Resultado"}; // Define os nomes das colunas
-        // Cria o modelo da tabela com as colunas
-        tableModel = new DefaultTableModel(columnNames, 0);
-        // Cria a tabela com o modelo
-        table = new JTable(tableModel);
-        // Adiciona a tabela a um scroll pane para permitir rolagem
-        JScrollPane scrollPane = new JScrollPane(table);
-        // Adiciona o scroll pane ao painel
-        panel.add(scrollPane, BorderLayout.CENTER);
-
-        // Realiza as consultas e preenche a tabela
-        realizarConsultas();
-    }
-
-    // Método para realizar consultas e preencher a tabela
-    private void realizarConsultas() {
-        try {
-        	// Inicializa a fachada (configura o acesso aos dados)
-            Fachada.inicializar();
-            // Consulta vídeos por classificação
-            // Consulta vídeos com classificação 5
-            List<Video> videos = Fachada.videosPorClassificacao(5);
-            tableModel.setRowCount(0); // Limpa a tabela antes de adicionar novas linhas
-            for (Video video : videos) {
-            	// Cria uma linha com o resultado da consulta
-                Object[] row = {"Classificação 5", video.getTitulo()};
-                // Adiciona a linha ao modelo da tabela
-                tableModel.addRow(row);
-            }
-
-            // Consulta vídeos por gênero
-            // Consulta vídeos do gênero "Suspense"
-            videos = Fachada.videosPorGenero("Suspense");
-            for (Video video : videos) {
-            	// Cria uma linha com o resultado da consulta
-                Object[] row = {"Gênero Suspense", video.getTitulo()};
-                // Adiciona a linha ao modelo da tabela
-                tableModel.addRow(row);
-            }
-
-            // Consulta vídeos por título
-            // Consulta vídeos com o título "Coraline"
-            videos = Fachada.videosPorTitulo("Coraline");
-            for (Video video : videos) {
-            	// Cria uma linha com o resultado da consulta
-                Object[] row = {"Título Coraline", video.getTitulo()};
-                // Adiciona a linha ao modelo da tabela
-                tableModel.addRow(row);
-            }
-
-            // Consulta vídeos por link
-            // Consulta vídeos com o link "bladerunner.com"
-            videos = Fachada.videosPorLink("bladerunner.com");
-            for (Video video : videos) {
-            	// Cria uma linha com o resultado da consulta
-                Object[] row = {"Link bladerunner.com", video.getTitulo()};
-                // Adiciona a linha ao modelo da tabela
-                tableModel.addRow(row);
-            }
-        } catch (Exception e) {
-        	// Exibe uma mensagem de erro se ocorrer uma exceção durante as consultas
-            JOptionPane.showMessageDialog(panel, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        } finally {
-        	// Finaliza a fachada (fecha o acesso aos dados)
-            Fachada.finalizar();
-        }
-    }
-
-    // Método para obter o painel principal da tela de consulta
-    public JPanel getPanel() {
-        return panel;
-    }
-}
-
-*/
