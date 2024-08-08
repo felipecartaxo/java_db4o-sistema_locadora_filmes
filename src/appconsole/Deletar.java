@@ -8,8 +8,8 @@ public class Deletar {
 		Fachada.inicializar();
 		
 		try {
-			Fachada.excluirVideo("Video1");
-			System.out.println("apagou video1");
+			Fachada.excluirVideo("Divertidamente");
+			System.out.println("apagou video...divertidamente");
 			
 			Fachada.excluirGenero("Romance");
 			System.out.println("apagou genero...romance");

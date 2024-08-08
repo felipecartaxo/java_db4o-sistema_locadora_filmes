@@ -116,7 +116,13 @@ public class Fachada {
 		if(video == null) {
 			throw new Exception ("video incorreto para exclusao " + titulo);
 		}
-			
+		
+		// Apaga os vídeos dos gêneros onde este vídeo estava inserido
+		for (Genero g : video.getGeneros()) {
+			g.removerVideo(video); // Remove o vídeo a ser apagado da lista de gêneros em que o mesmo estava associado
+			daogenero.update(g);
+		}
+		
 		// Apaga o vídeo sem apagar os gêneros, pois podem existir outros filmes que compartilham do mesmo gênero
 		daovideo.delete(video);
 		DAO.commit();
@@ -164,6 +170,12 @@ public class Fachada {
 		// Lança exceção se o gênero a ser excluído não existir
 		if(genero == null) {
 			throw new Exception ("genero incorreto para exclusao " + nome);
+		}
+		
+		// Apaga os gêneros dos gêneros onde este vídeo estava inserido
+		for (Video v : genero.getVideos()) {
+			v.removerGenero(genero); // Remove o vídeo a ser apagado da lista de gêneros em que o mesmo estava associado
+			daovideo.update(v);
 		}
 		
 		// Apaga o genero sem apagar os videos, pois os videos podem conter outros gêneros ou podem simplesmente ficar sem gênero até que outro possa ser incluido
