@@ -9,13 +9,13 @@ public class Cadastrar {
 			Fachada.inicializar();
 			System.out.println("cadastrando videos...");
 			
-			Fachada.criarVideo("O labirinto do fauno", "labfauno.com", 5);
-			Fachada.criarVideo("A viagem de Chihiro", "chihiro.com", 5);
-			Fachada.criarVideo("Elementos", "elementos.com", 2);
-			Fachada.criarVideo("Coraline", "coraline.com", 5);
-			Fachada.criarVideo("Blade Runner", "bladerunner.com", 3);
-			Fachada.criarVideo("Divertidamente", "divertidamente.com", 3);
-			Fachada.criarVideo("Divertidamente 2", "divertidamente.com", 3);
+			Fachada.criarVideo("O labirinto do fauno", "https://youtu.be/jVZRnnVSQ8k", 5);
+			Fachada.criarVideo("A viagem de Chihiro", "https://www.youtube.com/watch?v=ByXuk9QqQkk", 5);
+			Fachada.criarVideo("Elementos", "https://www.youtube.com/watch?v=hXzcyx9V0xw", 2);
+			Fachada.criarVideo("Coraline", "https://www.youtube.com/watch?v=m9bOpeuvNwY", 5);
+			Fachada.criarVideo("Blade Runner", "https://www.youtube.com/watch?v=gCcx85zbxz4", 3);
+			Fachada.criarVideo("Divertidamente", "https://www.youtube.com/watch?v=yRUAzGQ3nSY", 3);
+			Fachada.criarVideo("Divertidamente 2", "https://www.youtube.com/watch?v=u69y5Ie519M", 3);
 		}
 
 		catch (Exception e) {
