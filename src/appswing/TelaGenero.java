@@ -71,6 +71,9 @@ public class TelaGenero extends JFrame {
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
         add(panel);
+
+        // Listar os gêneros automaticamente ao iniciar a tela
+        listarGeneros();
     }
 
     private void listarGeneros() {
