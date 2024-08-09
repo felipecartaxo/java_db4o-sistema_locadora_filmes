@@ -15,10 +15,14 @@ public class TelaGenero extends JFrame {
     private DefaultTableModel tableModel;
 
     public TelaGenero() {
+    	setResizable(false);
         setTitle("Gerenciamento de Gêneros");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        
+        // Remove os botões de minimizar, maximizar e fechar
+        setUndecorated(true);
 
         // Painel principal
         JPanel panel = new JPanel();
@@ -70,7 +74,7 @@ public class TelaGenero extends JFrame {
 
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
-        add(panel);
+        getContentPane().add(panel);
 
         // Listar os gêneros automaticamente ao iniciar a tela
         listarGeneros();

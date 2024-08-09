@@ -36,6 +36,9 @@ public class TelaVideo extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // Remove os botões de minimizar, maximizar e fechar
+        setUndecorated(true);
+
         // Painel principal
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -73,8 +76,7 @@ public class TelaVideo extends JFrame {
             }
         });
         buttonPanel.add(deletarButton);
-
-        // Botão para ver o trailer
+        
         JButton verTrailer = new JButton("Veja o trailer");
         verTrailer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

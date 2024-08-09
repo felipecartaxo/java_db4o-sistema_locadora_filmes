@@ -21,6 +21,9 @@ public class TelaConsulta extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        
+        // Remove os botões de minimizar, maximizar e fechar
+        setUndecorated(true);
 
         // Painel principal
         JPanel panel = new JPanel();
