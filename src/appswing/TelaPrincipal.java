@@ -68,11 +68,16 @@ public class TelaPrincipal extends JFrame {
         JButton sairButton = new JButton("Sair");
         sairButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0); // Encerra a aplicação
+                try {
+                    Util.desconectar(); // Método para fechar o banco de dados
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                } finally {
+                    System.exit(0);
+                }
             }
         });
         panel.add(sairButton);
-
         add(panel);
     }
 
