@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import daodb4o.Util;
 import regras_negocio.Fachada;
 
 public class TelaPrincipal extends JFrame {

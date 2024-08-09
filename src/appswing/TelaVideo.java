@@ -1,11 +1,24 @@
 package appswing;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Desktop;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+
 import modelo.Video;
 import regras_negocio.Fachada;
 
@@ -60,6 +73,27 @@ public class TelaVideo extends JFrame {
             }
         });
         buttonPanel.add(deletarButton);
+        
+     // Botão para ver o trailer
+        JButton verTrailer = new JButton("Veja o trailer");
+        verTrailer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = videoTable.getSelectedRow();
+                if (selectedRow >= 0) {
+                    String link = (String) tableModel.getValueAt(selectedRow, 2); // Obtem o link da coluna 2 (índice 2)
+                    try {
+                        Desktop desktop = Desktop.getDesktop();
+                        desktop.browse(new java.net.URI(link));
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(TelaVideo.this, "Erro ao abrir o link: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(TelaVideo.this, "Por favor, selecione um vídeo para ver o trailer.", "Nenhum vídeo selecionado", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+        buttonPanel.add(verTrailer);
+
 
         // Botão de Voltar
         JButton voltarButton = new JButton("Voltar");
@@ -73,7 +107,7 @@ public class TelaVideo extends JFrame {
 
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
-        add(panel);
+        getContentPane().add(panel);
     }
 
     private void listarVideos() {
