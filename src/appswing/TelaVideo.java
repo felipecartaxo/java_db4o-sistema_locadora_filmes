@@ -73,14 +73,14 @@ public class TelaVideo extends JFrame {
             }
         });
         buttonPanel.add(deletarButton);
-        
-     // Botão para ver o trailer
+
+        // Botão para ver o trailer
         JButton verTrailer = new JButton("Veja o trailer");
         verTrailer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = videoTable.getSelectedRow();
                 if (selectedRow >= 0) {
-                    String link = (String) tableModel.getValueAt(selectedRow, 2); // Obtem o link da coluna 2 (índice 2)
+                    String link = (String) tableModel.getValueAt(selectedRow, 2); // Obtem o link da coluna 2
                     try {
                         Desktop desktop = Desktop.getDesktop();
                         desktop.browse(new java.net.URI(link));
@@ -93,7 +93,6 @@ public class TelaVideo extends JFrame {
             }
         });
         buttonPanel.add(verTrailer);
-
 
         // Botão de Voltar
         JButton voltarButton = new JButton("Voltar");
@@ -108,6 +107,9 @@ public class TelaVideo extends JFrame {
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
         getContentPane().add(panel);
+
+        // Listar os vídeos automaticamente ao iniciar a tela
+        listarVideos();
     }
 
     private void listarVideos() {
@@ -185,7 +187,6 @@ public class TelaVideo extends JFrame {
     }
 
     public Component getPanel() {
-        // TODO Auto-generated method stub
         return panel;
     }
 }
